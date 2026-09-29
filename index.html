@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PutSeek — 说一声，就记住放哪了</title>
+  <meta name="description" content="PutSeek 在 iPhone 上记住物品放在哪、食物何时到期。记录只留在这台手机里，不联网，不上传。">
+  <meta name="theme-color" content="#f3eee4">
+  <link rel="canonical" href="https://motioncomic.github.io/PutSeek/?lang=zh">
+  <link rel="icon" href="assets/logo.png" type="image/png">
+  <link rel="stylesheet" href="assets/site.css">
+  <meta property="og:title" content="PutSeek — 说一声，就记住放哪了">
+  <meta property="og:description" content="PutSeek 在 iPhone 上记住物品放在哪、食物何时到期。记录只留在这台手机里，不联网，不上传。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://motioncomic.github.io/PutSeek/?lang=zh">
+  <link rel="alternate" hreflang="zh-Hans" href="https://motioncomic.github.io/PutSeek/?lang=zh">
+  <link rel="alternate" hreflang="zh-Hant" href="https://motioncomic.github.io/PutSeek/?lang=zh-Hant">
+  <link rel="alternate" hreflang="en" href="https://motioncomic.github.io/PutSeek/?lang=en">
+  <link rel="alternate" hreflang="ja" href="https://motioncomic.github.io/PutSeek/?lang=ja">
+  <link rel="alternate" hreflang="es" href="https://motioncomic.github.io/PutSeek/?lang=es">
+  <link rel="alternate" hreflang="x-default" href="https://motioncomic.github.io/PutSeek/?lang=zh">
+  <script>
+    (function () {
+      var map = {
+        "zh": "zh", "zh-hans": "zh", "zh-cn": "zh", "zh-sg": "zh", "cn": "zh",
+        "zh-hant": "zh-Hant", "zh-tw": "zh-Hant", "zh-hk": "zh-Hant", "zh-mo": "zh-Hant",
+        "en": "en", "en-us": "en", "en-gb": "en",
+        "ja": "ja", "ja-jp": "ja",
+        "es": "es", "es-mx": "es", "es-es": "es", "es-419": "es"
+      };
+      var htmlLang = { "zh": "zh-Hans", "zh-Hant": "zh-Hant", "en": "en", "ja": "ja", "es": "es" };
+      var titles = {"zh": "PutSeek — 说一声，就记住放哪了", "zh-Hant": "PutSeek — 說一聲，就記住放哪了", "en": "PutSeek — Say it once, and it’s remembered", "ja": "PutSeek — ひとこと言えば、置き場所を覚える", "es": "PutSeek — Dilo una vez y queda guardado"};
+      var descriptions = {"zh": "PutSeek 在 iPhone 上记住物品放在哪、食物何时到期。记录只留在这台手机里，不联网，不上传。", "zh-Hant": "PutSeek 在 iPhone 上記住物品放在哪、食物何時到期。記錄只留在這台手機裡，不聯網，不上傳。", "en": "PutSeek remembers where things are and when food expires, on your iPhone. It stays on the phone. Nothing is uploaded.", "ja": "PutSeek は iPhone 上で、物の場所と食べ物の期限を覚えます。記録はこの iPhone だけに残り、アップロードしません。", "es": "PutSeek recuerda en el iPhone dónde están las cosas y cuándo caduca la comida. Se queda en el teléfono. No se sube nada."};
+      function norm(value) { return (value || "").trim().toLowerCase().replace(/_/g, "-"); }
+      function pick(value) {
+        var key = norm(value);
+        if (!key) return "";
+        if (map[key]) return map[key];
+        if (key.indexOf("zh-hant") === 0 || key === "zh-tw" || key === "zh-hk" || key === "zh-mo") return "zh-Hant";
+        if (key.indexOf("zh") === 0) return "zh";
+        if (key.indexOf("en") === 0) return "en";
+        if (key.indexOf("ja") === 0) return "ja";
+        if (key.indexOf("es") === 0) return "es";
+        return "";
+      }
+      var requested = pick(new URLSearchParams(location.search).get("lang"));
+      var lang = requested || pick(navigator.languages && navigator.languages[0]) || pick(navigator.language) || "zh";
+      document.documentElement.lang = htmlLang[lang];
+      document.documentElement.dataset.siteLang = lang;
+      if (titles[lang]) document.title = titles[lang];
+      var meta = document.querySelector('meta[name="description"]');
+      if (meta && descriptions[lang]) meta.setAttribute("content", descriptions[lang]);
+      var ogTitle = document.querySelector('meta[property="og:title"]');
+      var ogDesc = document.querySelector('meta[property="og:description"]');
+      if (ogTitle && titles[lang]) ogTitle.setAttribute("content", titles[lang]);
+      if (ogDesc && descriptions[lang]) ogDesc.setAttribute("content", descriptions[lang]);
+    })();
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <a class="brand" href="./?lang=zh">
+        <img src="assets/logo.png" alt="">
+        <span translate="no">PutSeek</span>
+      </a>
+      <nav class="langs" aria-label="Language">
+      <a href="?lang=zh" hreflang="zh-Hans" data-lang-link="zh">简体中文</a>
+      <a href="?lang=zh-Hant" hreflang="zh-Hant" data-lang-link="zh-Hant">繁體中文</a>
+      <a href="?lang=en" hreflang="en" data-lang-link="en">English</a>
+      <a href="?lang=ja" hreflang="ja" data-lang-link="ja">日本語</a>
+      <a href="?lang=es" hreflang="es" data-lang-link="es">Español</a>
+      </nav>
+    </header>
+    <main>
+    <article class="sheet" data-lang="zh" lang="zh-Hans">
+      <section class="hero">
+        <div class="hero-copy">
+          <h1>说一声，就记住放哪了</h1>
+          <p class="lede">用一句话记下东西放在家里的哪里、食物什么时候到期，以及不想让别人看见的物品。</p>
+          <p class="stamp">完全离线，不上传</p>
+        </div>
+      </section>
+      <div class="features">
+        <section class="feature">
+          <p class="num">01</p>
+          <div>
+            <h2>放哪了</h2>
+            <p>按住说「钥匙放在玄关旁边的筐里」。之后问「钥匙在哪」。同一类东西可以有好几件，靠颜色、新旧、喜好分开，不会把另一件盖掉。</p>
+            <p class="quote">「蓝色的牛仔裤放在阁楼的衣柜里」</p>
+          </div>
+        </section>
+        <section class="feature">
+          <p class="num">02</p>
+          <div>
+            <h2>过期没</h2>
+            <p>说「面包三天后到期」，或「饼干十一月二号过期」。提醒留在手机上，日子越近越密：半年以外每月，然后每半个月、每周、每两天，最后三天每天。</p>
+            <p class="quote">「哪些快过期了」</p>
+          </div>
+        </section>
+        <section class="feature">
+          <p class="num">03</p>
+          <div>
+            <h2>藏哪了</h2>
+            <p>不想让别人看到的物品单独放着。用这台 iPhone 的面容、指纹或锁屏密码打开，不用再记一套密码。</p>
+            <p class="quote">面容、指纹或锁屏密码</p>
+          </div>
+        </section>
+      </div>
+      <section class="examples">
+        <h2>可以这样说</h2>
+        <div class="cols">
+          <div class="col">
+            <p class="kicker">存</p>
+            <ul>
+            <li>钥匙放在玄关旁边的筐里</li>
+            <li>蓝色的牛仔裤放在阁楼的衣柜里</li>
+            <li>面包三天后到期</li>
+            </ul>
+          </div>
+          <div class="col">
+            <p class="kicker">问</p>
+            <ul>
+            <li>钥匙在哪</li>
+            <li>家里有什么裤子</li>
+            <li>哪些快过期了</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <aside class="note">
+        <h2>像松鼠那样收着</h2>
+        <p>松鼠习惯精心储藏食物，记住每一份食物存放的位置，按时取用。就像 PutSeek，帮你整理家里物品、记录食材存放位置与过期时间，不再遗忘、不再浪费。</p>
+      </aside>
+      <footer class="foot">
+        <a href="support-zh.html">技术支持</a>
+        <a href="privacy-policy-zh.html">隐私政策</a>
+        <a href="mailto:10226093@qq.com?subject=PutSeek%20%E6%8A%80%E6%9C%AF%E6%94%AF%E6%8C%81">10226093@qq.com</a>
+      </footer>
+    </article>
+
+    <article class="sheet" data-lang="zh-Hant" lang="zh-Hant">
+      <section class="hero">
+        <div class="hero-copy">
+          <h1>說一聲，就記住放哪了</h1>
+          <p class="lede">用一句話記下東西放在家裡的哪裡、食物什麼時候到期，以及不想讓別人看見的物品。</p>
+          <p class="stamp">完全離線，不上傳</p>
+        </div>
+      </section>
+      <div class="features">
+        <section class="feature">
+          <p class="num">01</p>
+          <div>
+            <h2>放哪了</h2>
+            <p>按住說「鑰匙放在玄關旁邊的筐裡」。之後問「鑰匙在哪」。同一類東西可以有好幾件，靠顏色、新舊、喜好分開，不會把另一件蓋掉。</p>
+            <p class="quote">「藍色的牛仔褲放在閣樓的衣櫃裡」</p>
+          </div>
+        </section>
+        <section class="feature">
+          <p class="num">02</p>
+          <div>
+            <h2>過期沒</h2>
+            <p>說「麵包三天後到期」，或「餅乾十一月二號過期」。提醒留在手機上，日子越近越密：半年以外每月，然後每半個月、每週、每兩天，最後三天每天。</p>
+            <p class="quote">「哪些快過期了」</p>
+          </div>
+        </section>
+        <section class="feature">
+          <p class="num">03</p>
+          <div>
+            <h2>藏哪了</h2>
+            <p>不想讓別人看到的物品單獨放著。用這台 iPhone 的面容、指紋或鎖定密碼打開，不用再記一套密碼。</p>
+            <p class="quote">面容、指紋或鎖定密碼</p>
+          </div>
+        </section>
+      </div>
+      <section class="examples">
+        <h2>可以這樣說</h2>
+        <div class="cols">
+          <div class="col">
+            <p class="kicker">存</p>
+            <ul>
+            <li>鑰匙放在玄關旁邊的筐裡</li>
+            <li>藍色的牛仔褲放在閣樓的衣櫃裡</li>
+            <li>麵包三天後到期</li>
+            </ul>
+          </div>
+          <div class="col">
+            <p class="kicker">問</p>
+            <ul>
+            <li>鑰匙在哪</li>
+            <li>家裡有什麼褲子</li>
+            <li>哪些快過期了</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <aside class="note">
+        <h2>像松鼠那樣收著</h2>
+        <p>松鼠習慣精心儲藏食物，記住每一份食物存放的位置，按時取用。就像 PutSeek，幫你整理家裡物品、記錄食材存放位置與過期時間，不再遺忘、不再浪費。</p>
+      </aside>
+      <footer class="foot">
+        <a href="support-zh-Hant.html">技術支援</a>
+        <a href="privacy-policy-zh-Hant.html">隱私權政策</a>
+        <a href="mailto:10226093@qq.com?subject=PutSeek%20%E6%8A%80%E8%A1%93%E6%94%AF%E6%8F%B4">10226093@qq.com</a>
+      </footer>
+    </article>
+
+    <article class="sheet" data-lang="en" lang="en">
+      <section class="hero">
+        <div class="hero-copy">
+          <h1>Say it once, and it’s remembered</h1>
+          <p class="lede">Say where something went at home, when the food expires, or what you’d rather keep out of sight.</p>
+          <p class="stamp">Fully offline. Nothing is uploaded.</p>
+        </div>
+      </section>
+      <div class="features">
+        <section class="feature">
+          <p class="num">01</p>
+          <div>
+            <h2>Places</h2>
+            <p>Hold and say “The keys are in the basket beside the entryway.” Later, ask “Where are my keys?” Similar things can stay separate — by color, age, or which one you like — without overwriting another.</p>
+            <p class="quote">“The blue jeans are in the wardrobe in the attic.”</p>
+          </div>
+        </section>
+        <section class="feature">
+          <p class="num">02</p>
+          <div>
+            <h2>Expiry</h2>
+            <p>Say “Bread expires in 3 days,” or “Cookies expire on November 2.” Reminders stay on the phone and come closer as the date does: monthly beyond half a year, then every half month, weekly, every other day, and daily for the last three days.</p>
+            <p class="quote">“What’s expiring soon?”</p>
+          </div>
+        </section>
+        <section class="feature">
+          <p class="num">03</p>
+          <div>
+            <h2>Hidden</h2>
+            <p>Things you don’t want others to see sit apart. Open them with this iPhone’s Face ID, Touch ID, or passcode. There is no second password.</p>
+            <p class="quote">Face ID, Touch ID, or passcode</p>
+          </div>
+        </section>
+      </div>
+      <section class="examples">
+        <h2>You can say</h2>
+        <div class="cols">
+          <div class="col">
+            <p class="kicker">Save</p>
+            <ul>
+            <li>The keys are in the basket beside the entryway.</li>
+            <li>The blue jeans are in the wardrobe in the attic.</li>
+            <li>Bread expires in 3 days.</li>
+            </ul>
+          </div>
+          <div class="col">
+            <p class="kicker">Ask</p>
+            <ul>
+            <li>Where are my keys?</li>
+            <li>What pants do I have?</li>
+            <li>What’s expiring soon?</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <aside class="note">
+        <h2>Stored the way a squirrel stores</h2>
+        <p>Squirrels carefully store food, remember where each piece is kept, and take it out on time. PutSeek does the same: it helps you keep track of things at home, and where food is stored and when it expires, so nothing is forgotten or wasted.</p>
+      </aside>
+      <footer class="foot">
+        <a href="support-en.html">Support</a>
+        <a href="privacy-policy-en.html">Privacy Policy</a>
+        <a href="mailto:10226093@qq.com?subject=PutSeek%20support">10226093@qq.com</a>
+      </footer>
+    </article>
+
+    <article class="sheet" data-lang="ja" lang="ja">
+      <section class="hero">
+        <div class="hero-copy">
+          <h1>ひとこと言えば、置き場所を覚える</h1>
+          <p class="lede">家のどこに置いたか、食べ物の期限、人に見られたくない物。一声で、この iPhone に残ります。</p>
+          <p class="stamp">完全にオフライン。アップロードしません。</p>
+        </div>
+      </section>
+      <div class="features">
+        <section class="feature">
+          <p class="num">01</p>
+          <div>
+            <h2>どこに置いた</h2>
+            <p>押しながら「鍵は玄関の横のかごにある」と言います。あとで「鍵はどこ」と聞けます。同じ種類がいくつかあっても、色や新旧で分かれたまま、別の一つを上書きしません。</p>
+            <p class="quote">「青いジーンズは屋根裏のクローゼットにある」</p>
+          </div>
+        </section>
+        <section class="feature">
+          <p class="num">02</p>
+          <div>
+            <h2>期限は</h2>
+            <p>「パンは3日後に期限切れ」「クッキーは11月2日に期限切れ」。知らせはこの iPhone の中だけです。半年より先は毎月、その後は半月ごと、毎週、2日ごと、最後の3日は毎日です。</p>
+            <p class="quote">「もうすぐ期限切れのものは」</p>
+          </div>
+        </section>
+        <section class="feature">
+          <p class="num">03</p>
+          <div>
+            <h2>隠した場所</h2>
+            <p>人に見られたくない品物は別に置きます。この iPhone の顔、指紋、またはパスコードで開きます。別のパスワードは要りません。</p>
+            <p class="quote">顔、指紋、またはパスコード</p>
+          </div>
+        </section>
+      </div>
+      <section class="examples">
+        <h2>たとえば</h2>
+        <div class="cols">
+          <div class="col">
+            <p class="kicker">覚える</p>
+            <ul>
+            <li>鍵は玄関の横のかごにある</li>
+            <li>青いジーンズは屋根裏のクローゼットにある</li>
+            <li>パンは3日後に期限切れ</li>
+            </ul>
+          </div>
+          <div class="col">
+            <p class="kicker">聞く</p>
+            <ul>
+            <li>鍵はどこ</li>
+            <li>家にズボンはある？</li>
+            <li>もうすぐ期限切れのものは</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <aside class="note">
+        <h2>リスが蓄えるように</h2>
+        <p>リスは食べ物を丁寧に蓄え、一つひとつの置き場所を覚え、時期が来たら取り出します。PutSeek も同じように、家の物を整理し、食材の置き場所と期限を記録して、忘れたり無駄にしたりしないようにします。</p>
+      </aside>
+      <footer class="foot">
+        <a href="support-ja.html">サポート</a>
+        <a href="privacy-policy-ja.html">プライバシーポリシー</a>
+        <a href="mailto:10226093@qq.com?subject=PutSeek%20%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88">10226093@qq.com</a>
+      </footer>
+    </article>
+
+    <article class="sheet" data-lang="es" lang="es">
+      <section class="hero">
+        <div class="hero-copy">
+          <h1>Dilo una vez y queda guardado</h1>
+          <p class="lede">Di dónde dejaste algo en casa, cuándo caduca la comida, o lo que no quieres que otros vean.</p>
+          <p class="stamp">Sin conexión. No se sube nada.</p>
+        </div>
+      </section>
+      <div class="features">
+        <section class="feature">
+          <p class="num">01</p>
+          <div>
+            <h2>Dónde está</h2>
+            <p>Mantén pulsado y di: “Las llaves están en la cesta junto a la entrada.” Luego pregunta: “¿Dónde están las llaves?” Si hay varias parecidas, el color, si son nuevas o cuál te gusta más las mantiene aparte, sin pisar la otra.</p>
+            <p class="quote">“Los jeans azules están en el armario del ático.”</p>
+          </div>
+        </section>
+        <section class="feature">
+          <p class="num">02</p>
+          <div>
+            <h2>Caduca</h2>
+            <p>Di “El pan caduca en 3 días” o “Las galletas caducan el 2 de noviembre.” Los avisos se quedan en el iPhone y se acercan con la fecha: cada mes si falta más de medio año; luego cada medio mes, cada semana, cada dos días, y cada día los últimos 3 días.</p>
+            <p class="quote">“¿Qué caduca pronto?”</p>
+          </div>
+        </section>
+        <section class="feature">
+          <p class="num">03</p>
+          <div>
+            <h2>Oculto</h2>
+            <p>Lo que no quieres que otros vean se guarda aparte. Se abre con Face ID, Touch ID o el código de este iPhone. No hace falta otra contraseña.</p>
+            <p class="quote">Face ID, Touch ID o el código</p>
+          </div>
+        </section>
+      </div>
+      <section class="examples">
+        <h2>Puedes decir</h2>
+        <div class="cols">
+          <div class="col">
+            <p class="kicker">Guardar</p>
+            <ul>
+            <li>Las llaves están en la cesta junto a la entrada.</li>
+            <li>Los jeans azules están en el armario del ático.</li>
+            <li>El pan caduca en 3 días.</li>
+            </ul>
+          </div>
+          <div class="col">
+            <p class="kicker">Preguntar</p>
+            <ul>
+            <li>¿Dónde están las llaves?</li>
+            <li>¿Qué pantalones hay?</li>
+            <li>¿Qué caduca pronto?</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <aside class="note">
+        <h2>Como guarda una ardilla</h2>
+        <p>Las ardillas guardan la comida con cuidado, recuerdan dónde está cada porción y la sacan a tiempo. Igual que PutSeek, que te ayuda a ordenar las cosas de casa y a anotar dónde guardas los alimentos y cuándo caducan, para no olvidarlos ni desperdiciarlos.</p>
+      </aside>
+      <footer class="foot">
+        <a href="support-es.html">Soporte</a>
+        <a href="privacy-policy-es.html">Política de privacidad</a>
+        <a href="mailto:10226093@qq.com?subject=Soporte%20de%20PutSeek">10226093@qq.com</a>
+      </footer>
+    </article>
+    </main>
+    <script>
+      var brand = document.querySelector(".brand");
+      if (brand) brand.setAttribute("href", "./?lang=" + (document.documentElement.dataset.siteLang || "zh"));
+    </script>
+  </div>
+</body>
+</html>
